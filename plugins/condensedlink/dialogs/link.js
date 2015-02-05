@@ -3,10 +3,16 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
+/**
+ * Modified from stock Link plugin.  Adds Unlink button to existing Link Dialog, removing the need for a separate toolbar button.
+ * Changes to original are marked with "Start/End condensedlink addition"
+ * Author: Aron Pasieka
+ */
+
 'use strict';
 
 ( function() {
-	CKEDITOR.dialog.add( 'link', function( editor ) {
+	CKEDITOR.dialog.add( 'condensedlinkDialog', function( editor ) {
 		var plugin = CKEDITOR.plugins.link;
 
 		// Handles the event when the "Target" selection box is changed.
@@ -122,7 +128,6 @@
 					'default': 'url',
 					items: [
 						[ linkLang.toUrl, 'url' ],
-						[ linkLang.toAnchor, 'anchor' ],
 						[ linkLang.toEmail, 'email' ]
 					],
 					onChange: linkTypeChanged,
@@ -239,7 +244,22 @@
 						hidden: 'true',
 						filebrowser: 'info:url',
 						label: commonLang.browseServer
-					} ]
+					},
+					//Start condensedlink addition
+					{
+						type: "button",
+						id: "unlinkurl",
+						label: editor.lang.link.unlink,
+						onClick: function(){
+							var style = new CKEDITOR.style(
+								{ element: 'a', type: CKEDITOR.STYLE_INLINE, alwaysRemoveElement: 1 } 
+							);
+							editor.removeStyle( style );
+							this.getDialog().hide();
+						}
+					}
+					//End condensedlink addition
+					]
 				},
 				{
 					type: 'vbox',
@@ -408,7 +428,22 @@
 
 							data.email.body = this.getValue();
 						}
-					} ],
+					},
+					//Start condensedlink addition
+					{
+						type: "button",
+						id: "unlinkemail",
+						label: editor.lang.link.unlink,
+						onClick: function(){
+							var style = new CKEDITOR.style(
+								{ element: 'a', type: CKEDITOR.STYLE_INLINE, alwaysRemoveElement: 1 } 
+							);
+							editor.removeStyle( style );
+							this.getDialog().hide();
+						}
+					}
+					//End condensedlink addition
+					 ],
 					setup: function() {
 						if ( !this.getDialog().getContentElement( 'info', 'linkType' ) )
 							this.getElement().hide();
@@ -786,11 +821,19 @@
 
 				// Fill in all the relevant fields if there's already one link selected.
 				if ( ( element = plugin.getSelectedLink( editor ) ) && element.hasAttribute( 'href' ) ) {
+					//Start condensedlink addition
+						this.getContentElement('info','unlinkurl').getElement().show();
+						this.getContentElement('info','unlinkemail').getElement().show();
+					//End condensedlink addition
 					// Don't change selection if some element is already selected.
 					// For example - don't destroy fake selection.
 					if ( !selection.getSelectedElement() )
 						selection.selectElement( element );
 				} else {
+					//Start condensedlink addition
+					this.getContentElement('info','unlinkurl').getElement().hide();
+					this.getContentElement('info','unlinkemail').getElement().hide();
+					//End condensedlink addition
 					element = null;
 				}
 
