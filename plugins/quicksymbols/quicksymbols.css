@@ -1,0 +1,9 @@
+.quicksymbols_button{
+	width: 25px;
+color: red !important;
+}
+
+.quicksymbols_button span{
+	width: 25px;
+color: green!important;
+}

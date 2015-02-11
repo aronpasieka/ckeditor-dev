@@ -1,0 +1,8 @@
+CKEDITOR.plugins.setLang("quicksymbols","en",{
+
+	  title: 'Quick Symbols',
+	  mathtab: 'Math Mode',
+	  mathinstructions: 'Select a symbol to place at the cursor as MathML.',
+	  chartab: 'Text Mode',
+	  charinstructions: 'Select a symbol to place at the cursor as MathML.',
+});

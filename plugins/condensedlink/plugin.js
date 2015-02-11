@@ -5,7 +5,7 @@
 
 /**
  * Modified from stock Link plugin.  Adds Unlink button to existing Link Dialog, removing the need for a separate toolbar button.
- * Author: Aron Pasieka
+ * Modified by: Aron Pasieka
  */
 
 'use strict';
@@ -18,13 +18,46 @@
 		// jscs:enable maximumLineLength
 		hidpi: true,
 		init: function( editor ) {
-			editor.addCommand( 'condensedlink', new CKEDITOR.dialogCommand( 'condensedlinkDialog') );
-			editor.ui.addButton( 'condensedlink', {
-				label: editor.lang.link.toolbar,
-				command: 'condensedlink',
-				icon : this.path + "icons/link.png"
-			} );
+			var allowed = 'a[!href]',
+				required = 'a[href]';
+
+			if ( CKEDITOR.dialog.isTabEnabled( editor, 'condensedlink', 'advanced' ) )
+				allowed = allowed.replace( ']', ',accesskey,charset,dir,id,lang,name,rel,tabindex,title,type]{*}(*)' );
+			if ( CKEDITOR.dialog.isTabEnabled( editor, 'condensedlink', 'target' ) )
+				allowed = allowed.replace( ']', ',target,onclick]' );
+
+			// Add the link and unlink buttons.
+			editor.addCommand( 'condensedlink', new CKEDITOR.dialogCommand( 'condensedlinkDialog', {
+				allowedContent: allowed,
+				requiredContent: required
+			} ) );
+
+			editor.setKeystroke( CKEDITOR.CTRL + 76 /*L*/, 'condensedlink' );
+
+			if ( editor.ui.addButton ) {
+				editor.ui.addButton( 'condensedlink', {
+					label: editor.lang.link.toolbar,
+					command: 'condensedlink',
+					icon : this.path + "icons/link.png"
+				} );
+			}
+
 			CKEDITOR.dialog.add( 'condensedlinkDialog', this.path + 'dialogs/link.js' );
+
+			editor.on( 'doubleclick', function( evt ) {
+				var element = CKEDITOR.plugins.link.getSelectedLink( editor ) || evt.data.element;
+
+				if ( !element.isReadOnly() ) {
+					if ( element.is( 'a' ) ) {
+						evt.data.dialog = ( element.getAttribute( 'name' ) && ( !element.getAttribute( 'href' ) || !element.getChildCount() ) ) ? 'anchor' : 'condensedlinkDialog';
+						// Pass the link to be selected along with event data.
+						evt.data.link = element;
+					} else if ( CKEDITOR.plugins.link.tryRestoreFakeAnchor( editor, element ) ) {
+						evt.data.dialog = 'anchor';
+					}
+				}
+			}, null, null, 0 );
+			
 		}
 	} );
 } )();

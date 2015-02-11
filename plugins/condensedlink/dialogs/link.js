@@ -5,7 +5,7 @@
 
 /**
  * Modified from stock Link plugin.  Adds Unlink button to existing Link Dialog, removing the need for a separate toolbar button.
- * Changes to original are marked with "Start/End condensedlink addition"
+ * 
  * Author: Aron Pasieka
  */
 
@@ -249,7 +249,7 @@
 					{
 						type: "button",
 						id: "unlinkurl",
-						label: editor.lang.link.unlink,
+						label: "Unlink",
 						onClick: function(){
 							var style = new CKEDITOR.style(
 								{ element: 'a', type: CKEDITOR.STYLE_INLINE, alwaysRemoveElement: 1 } 
@@ -433,7 +433,7 @@
 					{
 						type: "button",
 						id: "unlinkemail",
-						label: editor.lang.link.unlink,
+						label: "Unlink",
 						onClick: function(){
 							var style = new CKEDITOR.style(
 								{ element: 'a', type: CKEDITOR.STYLE_INLINE, alwaysRemoveElement: 1 } 
@@ -818,7 +818,6 @@
 				var editor = this.getParentEditor(),
 					selection = editor.getSelection(),
 					element = null;
-
 				// Fill in all the relevant fields if there's already one link selected.
 				if ( ( element = plugin.getSelectedLink( editor ) ) && element.hasAttribute( 'href' ) ) {
 					//Start condensedlink addition
