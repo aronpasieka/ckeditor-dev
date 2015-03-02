@@ -104,7 +104,7 @@ Special outer level classes used in this file:
 	/*border-bottom: 1px solid #b6b6b6;*/
 	border-bottom: 1px solid #b6b6b6;
 	/*padding: 6px 8px 2px;*/
-	padding: 4px 0px 0px 5px;
+	padding: 4px 0px 0px 4px;
 
 	/* Allow breaking toolbars when in a narrow editor. (#9947) */
 	white-space: normal;
@@ -123,6 +123,7 @@ Special outer level classes used in this file:
 	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');*/
 	background: #F8F8F8;
 }
+
 
 .cke_float .cke_top
 {
@@ -242,4 +243,17 @@ Special outer level classes used in this file:
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+}
+
+
+/* Tweak toolbar layout along with Bootstrap 3 breakpoints */
+@media (min-width: 992px) { 
+	.cke_top{
+		padding: 3px 0 0 3px;
+	}
+}
+@media (min-width: 1200px) { 
+	.cke_top{
+		padding: 4px 0 0 4px;
+	}
 }

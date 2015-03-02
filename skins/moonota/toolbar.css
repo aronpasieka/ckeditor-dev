@@ -64,7 +64,7 @@ Special outer level classes used in this file:
 .cke_toolgroup
 {
 	float: left;
-	margin: 0 6px 5px 0;
+	margin: 0 4px 4px 0;
 	border: 1px solid #9db7ca;
 	border-bottom-color: #749ab5;
 
@@ -85,10 +85,6 @@ Special outer level classes used in this file:
 	background-image: linear-gradient(top, #ffffff, #e4e4e4);
 	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ffffff', endColorstr='#e4e4e4');*/
 	background: #FDFDFD;
-}
-
-.cke_toolbar:last-child{
-	float:right;
 }
 
 .cke_hc .cke_toolgroup
@@ -440,3 +436,33 @@ a.cke_button_disabled:active
 	margin-top: 0;
 	margin-right: 2px;
 }
+
+/* Creates a virtual toolgroup of the font/style related toolbars that floats right */
+.cke_toolbar:nth-last-child(3), .cke_toolbar:nth-last-child(4), .cke_toolbar:last-child{
+	float: right;
+}
+
+/* Tweak toolbar layout along with Bootstrap 3 breakpoints */
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+	.cke_toolbar_separator{
+		margin: 5px 1px 0;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 992px) { 
+	.cke_toolgroup{
+		margin: 0 3px 3px 0;
+	}
+}
+@media (min-width: 1200px) { 
+	.cke_toolbar_separator{
+		margin: 5px 2px 0;
+	}
+	.cke_toolgroup{
+		margin: 0 5px 4px 0;
+	}
+}
+
+

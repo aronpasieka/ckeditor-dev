@@ -65,7 +65,7 @@ The visual representation of a rich combo widget looks as follows:
 	cursor: default;
 	display: inline-block;
 	float: left;
-	margin: 0 6px 5px 0;
+	margin: 0 4px 4px 0;
 
 	border: 1px solid #9db7ca;
 	border-bottom-color: #749ab5;
